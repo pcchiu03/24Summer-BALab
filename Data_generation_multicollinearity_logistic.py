@@ -38,7 +38,7 @@ def generate_multicollinearity_data(n, p, rho2, seed=426):
     """
 
     # Set random seeds for reproducibility
-    rand_for_seeds = np.random.default_rng(seed=426)
+    rand_for_seeds = np.random.default_rng(seed)
     all_seeds = rand_for_seeds.integers(low=0, high=50000, size=50000)
 
     record = []
