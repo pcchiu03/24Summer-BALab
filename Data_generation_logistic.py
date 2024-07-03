@@ -4,24 +4,24 @@ import os, random
 from numpy import linalg as LA
 
 
-def create_data(n, p, rho, k, sigma, seed=426):
+def generate_logistic_data(n, p, rho, k, sigma, seed=426):
     """
-    # Simulation datasets in section 4.2 (page 373)
-
-    # Input:
+    Input:
     n       - Number of data points
     p       - Number of features
     rho     - Pairwise correlation
     k       - Best k-feature
     sigma   - Covariance between the data points
 
-    # Output:
+    Output:
     X       - Feature
     y       - Target
 
-    # Source:
+    Source:
     Dimitris Bertsimas and Angela King. (2017). Logistic Regression: From Art to Science,
     Statistical Science, Vol. 32, No.3, 367-384.
+
+    Simulation datasets in Section 4.2 (page 373)
     """
 
     # Set random seeds for reproducibility
@@ -93,7 +93,7 @@ def create_data(n, p, rho, k, sigma, seed=426):
     record.to_excel(f"dataset/Bertsimas_logistic/record.xlsx", index=False)
 
 
-# Simulation settings
+# Simulation settings in Section 4.2 (page 373)
 n = [100, 1000, 2000]
 p = [10, 100, 200]
 rho = [0.4, 0.8]
@@ -101,4 +101,4 @@ k = 5
 sigma = 2
 
 # Start simulation
-create_data(n, p, rho, k, sigma)
+generate_logistic_data(n, p, rho, k, sigma)
