@@ -61,15 +61,6 @@ def generate_logistic_data(n, p, rho, k, sigma, seed=426):
             linear_combination = X @ beta + epsilon
             y = np.round(1 / (1 + np.exp(-linear_combination)))
 
-            """-------------- Show the summary information you want to know --------------"""
-            print(
-                f"Setting {seed_index + 1}: n = {setting_index_n}, p = {setting_index_p}, rho = {setting_index_rho}\n"
-            )
-            print(f"Correlation matrix:")
-            print(np.round(correlation_matrix, decimals=2), "\n")
-            print("-" * 80)
-            """---------------------------------------------------------------------------"""
-
             # Save the data
             output_dir = f"dataset/Bertsimas_logistic/Setting_{seed_index + 1}/"
             if not os.path.exists(output_dir):
@@ -86,6 +77,15 @@ def generate_logistic_data(n, p, rho, k, sigma, seed=426):
                     "correlation matrix": correlation_matrix,
                 }
             )
+
+            """-------------- Show the summary information you want to know --------------"""
+            print(
+                f"Setting {seed_index + 1}: n = {setting_index_n}, p = {setting_index_p}, rho = {setting_index_rho}\n"
+            )
+            print(f"Correlation matrix:")
+            print(np.round(correlation_matrix, decimals=2), "\n")
+            print("-" * 80)
+            """---------------------------------------------------------------------------"""
 
             seed_index += 1
 

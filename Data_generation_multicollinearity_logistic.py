@@ -87,19 +87,6 @@ def generate_multicollinearity_data(n, p, rho2, seed=426):
                 # Here should use 'LA.eigh()' since it's a symmetric matrix, or it may produce imaginary numbers
                 eigenvalues, eigenvectors = LA.eigh(Xt_Wh_X)
 
-                """-------------- Show the summary information you want to know --------------"""
-                print(
-                    f"Setting {seed_index + 1}: n = {n[setting_index_n]}, p = {p[setting_index_p]}, rho^2 = {rho2[setting_index_rho2]}\n"
-                )
-                print(f"Correlation matrix:")
-                print(np.round(correlation_matrix, decimals=2), "\n")
-
-                print(f"Eigenvalues:")
-                print(np.round(eigenvalues, decimals=3))
-                # print('max = %.3f, min = %.3f\n' % (max(eigenvalues), min(eigenvalues)))
-                print("-" * 80)
-                """---------------------------------------------------------------------------"""
-
                 # Save the data
                 output_dir = (
                     f"dataset/Asar_multicollinearity_Table2/Setting_{seed_index + 1}/"
@@ -119,6 +106,19 @@ def generate_multicollinearity_data(n, p, rho2, seed=426):
                         "correlation matrix": correlation_matrix,
                     }
                 )
+
+                """-------------- Show the summary information you want to know --------------"""
+                print(
+                    f"Setting {seed_index + 1}: n = {n[setting_index_n]}, p = {p[setting_index_p]}, rho^2 = {rho2[setting_index_rho2]}\n"
+                )
+                print(f"Correlation matrix:")
+                print(np.round(correlation_matrix, decimals=2), "\n")
+
+                print(f"Eigenvalues:")
+                print(np.round(eigenvalues, decimals=3))
+                # print('max = %.3f, min = %.3f\n' % (max(eigenvalues), min(eigenvalues)))
+                print("-" * 80)
+                """---------------------------------------------------------------------------"""
 
                 seed_index += 1
 
