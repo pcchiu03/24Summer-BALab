@@ -7,21 +7,21 @@ from numpy import linalg as LA
 def generate_asar_data(n, p, rho2, seed, setting_index, save_file=False):
     """
     Input
-    n               : Number of data
-    p               : Number of features
-    rho2            : Degree of correlation
-    seed            : Random seed
-    setting_index   : Number of the experiments
-    save_file       : Whether to save the generated data
+    - n              : Number of data
+    - p              : Number of features
+    - rho2           : Degree of correlation
+    - seed           : Random seed
+    - setting_index  : Number of the experiments
+    - save_file      : Whether to save the generated data
 
     Output
-    X         : Feature
-    y         : Target
-    beta      : True beta
-    record    : The detail information in each dataset (n, p, rho^2, eigenvalue, and correlation matrix)
+    - X              : Feature
+    - y              : Target
+    - beta           : True beta
+    - record         : The detail information in each dataset (n, p, rho^2, eigenvalue, and correlation matrix)
 
-    Source:
-    Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
+    Source
+    - Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
     Communications in Statistics - Simulation and Computation, 46:4, 2576-2586. Section 3.1 (page 2581)
     """
 

@@ -1,6 +1,10 @@
 import os, time, numpy as np, pandas as pd
 from numpy import linalg as LA
-from sklearn.metrics import mean_squared_error, mean_absolute_error, root_mean_squared_error
+from sklearn.metrics import (
+    mean_squared_error,
+    mean_absolute_error,
+    root_mean_squared_error,
+)
 from MLE_asar import MLE
 from Data_generation_asar import generate_asar_data
 
@@ -8,16 +12,16 @@ from Data_generation_asar import generate_asar_data
 def LLT(X, beta_MLE, X_TWX, k_type):
     """
     Input
-    X           : Feature
-    beta_MLE    : Optimal beta received by using Maximum Likelihood Estimation
-    X_TWX       : Marix X^T @ W @ X
-    k_type      : Type of estimator k for Logistic Liu-type Estimation
+    - X           : Feature
+    - beta_MLE    : Optimal beta received by using Maximum Likelihood Estimation
+    - X_TWX       : Marix X^T @ W @ X
+    - k_type      : Type of estimator k for Logistic Liu-type Estimation
 
     Output
-    beta_LLT    : Optimal beta obtained using Logistic Liu-type Estimation
+    - beta_LLT    : Optimal beta obtained using Logistic Liu-type Estimation
 
-    Source:
-    Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
+    Source
+    - Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
     Communications in Statistics - Simulation and Computation, 46:4, 2576-2586. Section 2 and 2.2 (page 2578-2579)
     """
     _, p = X.shape
@@ -54,18 +58,18 @@ def LLT(X, beta_MLE, X_TWX, k_type):
 def k_estimator(k_type, k_LT1, p):
     """
     Input
-    k_type     : Type of estimator k for Logistic Liu-type Estimation
-    k_LT1      : Individual parameter k_LT1
-    p          : Number of features
+    - k_type     : Type of estimator k for Logistic Liu-type Estimation
+    - k_LT1      : Individual parameter k_LT1
+    - p          : Number of features
 
     Output
-    The calculated k value based on the specified k_type:
+    - The calculated k value based on the specified k_type
         - 'AM'        : Arithmetic mean of k_LT1
         - 'GM'        : Geometric mean of k_LT1
         - 'MED'       : Median of k_LT1
         - Otherwise   : Raises ValueError for invalid k_type
 
-    Source:
+    - Source
     Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
     Communications in Statistics - Simulation and Computation, 46:4, 2576-2586. Section 2.2 (page 2579-2580)
     """
@@ -82,15 +86,15 @@ def k_estimator(k_type, k_LT1, p):
 def calculate_errors(beta_pred, beta_true):
     """
     Input
-    beta_pred   : Predicted beta
-    beta_true   : True beta
+    - beta_pred   : Predicted beta
+    - beta_true   : True beta
 
     Output
-    MSE   : Mean squared error
-    MAE   : Mean absolute error
+    - MSE   : Mean squared error
+    - MAE   : Mean absolute error
 
-    Source:
-    Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
+    Source
+    - Yasin Asar. (2017). Some new methods to solve multicollinearity in logistic regression.
     Communications in Statistics - Simulation and Computation, 46:4, 2576-2586. Section 3.1 (page 2580)
     """
     n = beta_true.shape[0]
@@ -100,16 +104,35 @@ def calculate_errors(beta_pred, beta_true):
     return MSE, MAE
 
 
+def predict(X, y, beta):
+    """
+    Input
+    - X       : Feature
+    - y       : Target
+    - beta    : Caculated beta by MLE or LLT
+
+    Output
+    - RMSE    : Root mean squared error between predicted and actual y
+    """
+    P_pred = np.zeros(X.shape[0])
+    P_pred = np.exp(X @ beta) / (1 + np.exp(X @ beta))
+    y_pred = np.random.binomial(1, P_pred)
+
+    RMSE = root_mean_squared_error(y, y_pred)
+
+    return RMSE
+
+
 def save_to_excel(data, filename, columns_per_group=3, transpose=True):
     """
     Input
-    data                : Data to be saved
-    filename            : Name of the Excel file
-    columns_per_group   : Number of columns per group to change the background color
-    transpose           : Whether to transpose the DataFrame before saving
+    - data                : Data to be saved
+    - filename            : Name of the Excel file
+    - columns_per_group   : Number of columns per group to change the background color
+    - transpose           : Whether to transpose the DataFrame before saving
 
-    Output:
-    Save the data into an Excel file in .xlsx format
+    Output
+    - Save the data into an Excel file in .xlsx format
     """
     output_dir = f"output/Asar_LLT/"
 
@@ -150,24 +173,6 @@ def save_to_excel(data, filename, columns_per_group=3, transpose=True):
             column_len = max(df[col].astype(str).map(len).max(), len(str(col)))
             worksheet.set_column(i, i, column_len + 2)
 
-def predict(X, y, beta):
-    """
-    Input
-    X       : Feature
-    y       : Target
-    beta    : Caculated beta by MLE or LLT
-
-    Output
-    RMSE  : Root mean squared error between predicted and actual y
-    """
-    P_pred = np.zeros(X.shape[0])
-    P_pred = np.exp(X @ beta) / (1 + np.exp(X @ beta))
-    y_pred = np.random.binomial(1, P_pred)
-
-    RMSE = root_mean_squared_error(y, y_pred)
-
-    return RMSE
-
 
 # Settings for each dataset in Table 1 to Table 4 (page 2581)
 n_values = [50, 100, 200]
@@ -190,7 +195,11 @@ setting_index, test_num = 0, 0
 for p in p_values:
     for rho2 in rho2_values:
         for n in n_values:
-            MSE_results, MAE_results, RMSE_results = np.zeros(4), np.zeros(4), np.zeros(4)
+            MSE_results, MAE_results, RMSE_results = (
+                np.zeros(4),
+                np.zeros(4),
+                np.zeros(4),
+            )
 
             for sim in range(num_simulations):
                 # print(f"simulation: {sim+1}")

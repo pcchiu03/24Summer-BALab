@@ -8,18 +8,18 @@ from Data_generation_asar import generate_asar_data
 def MLE(X, y, tol, setting_index, save_file=False):
     """
     Input
-    X               : Feature
-    y               : Target
-    tol             : Tolerance for convergence
-    setting_index   : Number of the experiments
-    save_file       : Whether to save the computation result of MLE
+    - X               : Feature
+    - y               : Target
+    - tol             : Tolerance for convergence
+    - setting_index   : Number of the experiments
+    - save_file       : Whether to save the computation result of MLE
 
     Output
-    beta_MLE      : The optimal beta from maximum likelihood esitmator (MLE)
-    X_TWX         : The marix X^T @ W @ X
+    - beta_MLE        : The optimal beta from maximum likelihood esitmator (MLE)
+    - X_TWX           : The marix X^T @ W @ X
 
-    Source:
-    Murphy-Probabilistic Machine Learning-book1
+    Source
+    - Murphy-Probabilistic Machine Learning-book1
     Page 346, Algorithm 10.1, Iteratively reweighted least squares (IRLS)
     """
     n, p = X.shape
