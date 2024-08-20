@@ -173,7 +173,7 @@ def save_to_excel(data, filename, columns_per_group=3, transpose=True):
             column_len = max(df[col].astype(str).map(len).max(), len(str(col)))
             worksheet.set_column(i, i, column_len + 2)
 
-
+"""
 # Settings for each dataset in Table 1 to Table 4 (page 2581)
 n_values = [50, 100, 200]
 p_values = [4, 8]
@@ -285,3 +285,4 @@ print(f"execution time: {end_time - star_time} (sec)")
 save_to_excel(MSE_table, "MSE_Table.xlsx")
 save_to_excel(MAE_table, "MAE_Table.xlsx")
 save_to_excel(RMSE_table, "RMSE_Table.xlsx")
+"""
