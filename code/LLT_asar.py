@@ -41,10 +41,8 @@ def LLT(X, beta_MLE, X_TWX, k_type):
         iteration += 1
 
     k_LT1 = (lambda_vals - d * (1 + lambda_vals * alpha**2)) / (lambda_vals * alpha**2)
-    # k_LT1 = np.clip(k_LT1, 1e-10, np.inf)
 
     k = k_estimator(k_type, k_LT1, p)
-    # k = np.clip(k, 1e-10, np.inf)
 
     beta_LLT = LA.inv(X_TWX + k * np.eye(p)) @ (X_TWX - d * np.eye(p)) @ beta_MLE
 

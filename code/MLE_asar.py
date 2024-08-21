@@ -82,8 +82,3 @@ def MLE(X, y, tol, setting_index, save_file=False):
                 worksheet.set_column(i, i, column_len + 2)
 
     return beta_MLE, X_TWX
-
-
-"""
-
-"""
