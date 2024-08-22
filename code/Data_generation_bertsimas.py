@@ -1,7 +1,4 @@
-import pandas as pd
-import numpy as np
-import os, random
-from numpy import linalg as LA
+import os, numpy as np, pandas as pd
 
 
 def generate_data_bertsimas(n, p, rho, k, sigma, seed=426):
@@ -65,6 +62,7 @@ def generate_data_bertsimas(n, p, rho, k, sigma, seed=426):
                 os.makedirs(output_dir, exist_ok=True)
 
             data = pd.DataFrame(X)
+            data['y'] = y
             data.to_csv(f"{output_dir}/Data_{seed_index + 1}.csv", index=False)
 
             record.append(
@@ -77,26 +75,16 @@ def generate_data_bertsimas(n, p, rho, k, sigma, seed=426):
             )
 
             """-------------- Show the summary information you want to know --------------"""
-            print(
-                f"Setting {seed_index + 1}: n = {setting_index_n}, p = {setting_index_p}, rho = {setting_index_rho}\n"
-            )
-            print(f"Correlation matrix:")
-            print(np.round(correlation_matrix, decimals=2), "\n")
-            print("-" * 80)
+            # print(
+            #     f"Setting {seed_index + 1}: n = {setting_index_n}, p = {setting_index_p}, rho = {setting_index_rho}\n"
+            # )
+            # print(f"Correlation matrix:")
+            # print(np.round(correlation_matrix, decimals=2), "\n")
+            # print("-" * 80)
             """---------------------------------------------------------------------------"""
 
             seed_index += 1
 
     record = pd.DataFrame(record)
     record.to_excel(f"dataset/Bertsimas/record.xlsx", index=False)
-
-
-# Simulation settings in Section 4.2 (page 373)
-n = [100, 1000, 2000]
-p = [10, 100, 200]
-rho = [0.4, 0.8]
-k = 5
-sigma = 2
-
-# Start simulation
-generate_data_bertsimas(n, p, rho, k, sigma)
+    
